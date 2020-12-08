@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "796324181948",
+    "firebase_url": "https://flutter-maroc.firebaseio.com",
+    "project_id": "flutter-maroc",
+    "storage_bucket": "flutter-maroc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:796324181948:android:bf43beefb82459314c5db9",
+        "android_client_info": {
+          "package_name": "com.example.chat_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "796324181948-4gjiqctmm7m3ekbqt5ohat0rab8dk123.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDh9d-UJWAc9DqkM9CgnjIYPDulV7XX9F8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "796324181948-4gjiqctmm7m3ekbqt5ohat0rab8dk123.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
