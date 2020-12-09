@@ -26,16 +26,34 @@ class ConversationProvider extends BaseProvider {
     return _concersations;
   }
 
-  Future<MessageModal> storeMessage(MessageModal message) async {
+  Future<void> storeMessage(MessageModal message) async {
     setBusy(true);
     var response = await _conversationService.storeMessage(message);
     // print(response.body);
     if (response.statusCode == 201) {
       var data = jsonDecode(response.body);
       setBusy(false);
-      return MessageModal.fromJson(data['data']);
+      addMessageToConversation(
+          message.conversationId, MessageModal.fromJson(data['data']));
     }
     setBusy(false);
-    return null;
+  }
+
+  addMessageToConversation(int conversationId, MessageModal message) {
+    var conversation = _concersations
+        .firstWhere((conversation) => conversation.id == conversationId);
+    conversation.messages.add(message);
+    toTheTop(conversation);
+    notifyListeners();
+  }
+
+  toTheTop(ConversationModel conversation) {
+    var index = _concersations.indexOf(conversation);
+
+    for (var i = index; i > 0; i--) {
+      var x = _concersations[i];
+      _concersations[i] = _concersations[i - 1];
+      _concersations[i - 1] = x;
+    }
   }
 }

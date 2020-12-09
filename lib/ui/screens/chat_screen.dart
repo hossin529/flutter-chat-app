@@ -99,16 +99,11 @@ class _ChatScreenState extends State<ChatScreen> {
                           if (messageTextEditController.text.isEmpty) return;
                           message.body = messageTextEditController.text.trim();
                           print(message.toJson());
-                          var messageStored =
-                              await Provider.of<ConversationProvider>(context)
-                                  .storeMessage(message);
-                          if (messageStored != null) {
-                            messageTextEditController.clear();
-                            conversation.messages.add(messageStored);
-                            _scrollController.jumpTo(
-                                _scrollController.position.maxScrollExtent +
-                                    23);
-                          }
+                          await Provider.of<ConversationProvider>(context)
+                              .storeMessage(message);
+                          messageTextEditController.clear();
+                          _scrollController.jumpTo(
+                              _scrollController.position.maxScrollExtent + 23);
                         },
                         child: Container(
                             padding: EdgeInsets.all(12),

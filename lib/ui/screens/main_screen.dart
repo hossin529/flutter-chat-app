@@ -1,4 +1,8 @@
+import 'dart:convert';
+
 import 'package:bubble_bottom_bar/bubble_bottom_bar.dart';
+import 'package:chat_app/models/message_model.dart';
+import 'package:chat_app/providers/conversation_provider.dart';
 import 'package:chat_app/providers/user_provider.dart';
 import 'package:chat_app/ui/screens/users/profile_screen.dart';
 import 'package:chat_app/ui/style.dart';
@@ -22,7 +26,6 @@ class _MainScreenState extends State<MainScreen> {
     super.initState();
 
     _firebaseMessaging.getToken().then((token) {
-      
       Provider.of<UserProvider>(context).setFcmToken(token);
     });
     notification();
@@ -32,6 +35,7 @@ class _MainScreenState extends State<MainScreen> {
     _firebaseMessaging.configure(
       onMessage: (Map<String, dynamic> message) async {
         print("onMessage: $message");
+        handleNotification(message['data'], false);
       },
       onLaunch: (Map<String, dynamic> message) async {
         print("onLaunch: $message");
@@ -40,6 +44,13 @@ class _MainScreenState extends State<MainScreen> {
         print("onResume: $message");
       },
     );
+  }
+
+  handleNotification(data, bool push) {
+    var messageJson = json.decode(data['message']);
+    var message = MessageModal.fromJson(messageJson);
+    Provider.of<ConversationProvider>(context)
+        .addMessageToConversation(message.conversationId, message);
   }
 
   final PageController _pageController = new PageController();
